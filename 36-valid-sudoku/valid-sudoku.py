@@ -1,23 +1,32 @@
+from collections import defaultdict
+
 class Solution:
     def isValidSudoku(self, board: List[List[str]]) -> bool:
-        seen = set()
+
+        rows = defaultdict(set)
+        cols = defaultdict(set)
+        boxes = defaultdict(set)
 
         for r in range(9):
             for c in range(9):
-                num = board[r][c]
 
-                if num == ".":
+                if board[r][c] == ".":
                     continue
 
-                row_check = (num, "row", r)
-                col_check = (num, "col", c)
-                box_check = (num, "box", r // 3, c // 3)
+                num = board[r][c]
+                box = (r // 3, c // 3)
 
-                if row_check in seen or col_check in seen or box_check in seen:
+                if num in rows[r]:
                     return False
 
-                seen.add(row_check)
-                seen.add(col_check)
-                seen.add(box_check)
+                if num in cols[c]:
+                    return False
+
+                if num in boxes[box]:
+                    return False
+
+                rows[r].add(num)
+                cols[c].add(num)
+                boxes[box].add(num)
 
         return True
