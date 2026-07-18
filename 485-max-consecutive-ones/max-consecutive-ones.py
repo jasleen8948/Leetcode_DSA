@@ -14,7 +14,7 @@ class Solution:
     def findMaxConsecutiveOnes(self, nums: List[int]) -> int:
         ans = cur = 0
         for x in nums:
-            if x:
+            if x: #shorter way of writing if x==1:
                 cur += 1
                 if cur > ans:
                     ans = cur
