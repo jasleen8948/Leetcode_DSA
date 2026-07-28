@@ -6,17 +6,36 @@
 #         self.right = right
 
 # recursive solution
+# class Solution:
+#     def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+#         ans = []
+
+#         def dfs(node):
+#             if not node:
+#                 return
+
+#             dfs(node.left)
+#             ans.append(node.val)
+#             dfs(node.right)
+
+#         dfs(root)
+#         return ans
+
+
+# iterative solution
 class Solution:
     def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        stack = []
         ans = []
+        curr = root
 
-        def dfs(node):
-            if not node:
-                return
+        while curr or stack:
+            while curr:
+                stack.append(curr)
+                curr = curr.left
 
-            dfs(node.left)
-            ans.append(node.val)
-            dfs(node.right)
+            curr = stack.pop()
+            ans.append(curr.val)
+            curr = curr.right
 
-        dfs(root)
         return ans
