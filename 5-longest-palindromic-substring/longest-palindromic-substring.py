@@ -10,6 +10,7 @@ class Solution:
                 left -= 1
                 right += 1
             return left + 1, right - 1
+            
         for i in range(len(s)):
             l1, r1 = expand(i, i)       # Odd length
             l2, r2 = expand(i, i + 1)   # Even length
