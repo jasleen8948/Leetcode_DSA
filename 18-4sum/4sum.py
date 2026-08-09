@@ -1,42 +1,42 @@
-class Solution:
-    def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
-        nums.sort()
-        n = len(nums)
-        ans = []
+# class Solution:
+#     def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
+#         nums.sort()
+#         n = len(nums)
+#         ans = []
 
-        for i in range(n - 3):
-            if i > 0 and nums[i] == nums[i - 1]:
-                continue
+#         for i in range(n - 3):
+#             if i > 0 and nums[i] == nums[i - 1]:
+#                 continue
 
-            for j in range(i + 1, n - 2):
-                if j > i + 1 and nums[j] == nums[j - 1]:
-                    continue
+#             for j in range(i + 1, n - 2):
+#                 if j > i + 1 and nums[j] == nums[j - 1]:
+#                     continue
 
-                left = j + 1
-                right = n - 1
+#                 left = j + 1
+#                 right = n - 1
 
-                while left < right:
-                    total = nums[i] + nums[j] + nums[left] + nums[right]
+#                 while left < right:
+#                     total = nums[i] + nums[j] + nums[left] + nums[right]
 
-                    if total == target:
-                        ans.append([nums[i], nums[j], nums[left], nums[right]])
+#                     if total == target:
+#                         ans.append([nums[i], nums[j], nums[left], nums[right]])
 
-                        left += 1
-                        right -= 1
+#                         left += 1
+#                         right -= 1
 
-                        while left < right and nums[left] == nums[left - 1]:
-                            left += 1
+#                         while left < right and nums[left] == nums[left - 1]:
+#                             left += 1
 
-                        while left < right and nums[right] == nums[right + 1]:
-                            right -= 1
+#                         while left < right and nums[right] == nums[right + 1]:
+#                             right -= 1
 
-                    elif total < target:
-                        left += 1
+#                     elif total < target:
+#                         left += 1
 
-                    else:
-                        right -= 1
+#                     else:
+#                         right -= 1
 
-        return ans
+#         return ans
 
 
 
@@ -63,3 +63,36 @@ class Solution:
 #                         r -= 1
 
 #         return list(map(list, res))
+
+
+class Solution(object):
+  def threeSum(self, nums, target):
+    results = []
+    nums.sort()
+    for i in range(len(nums)-2):
+      l = i + 1; r = len(nums) - 1
+      t = target - nums[i]
+      if i == 0 or nums[i] != nums[i-1]:
+        while l < r:
+          s = nums[l] + nums[r]
+          if s == t:
+            results.append([nums[i], nums[l], nums[r]])
+            while l < r and nums[l] == nums[l+1]: l += 1
+            while l < r and nums[r] == nums[r-1]: r -= 1
+            l += 1; r -=1
+          elif s < t:
+            l += 1
+          else:
+            r -= 1
+
+    return results
+
+  def fourSum(self, nums, target):
+    results = []
+    nums.sort()
+    for i in range(len(nums)-3):
+      if i == 0 or nums[i] != nums[i-1]:
+        threeResult = self.threeSum(nums[i+1:], target-nums[i])
+        for item in threeResult:
+          results.append([nums[i]] + item)
+    return results
