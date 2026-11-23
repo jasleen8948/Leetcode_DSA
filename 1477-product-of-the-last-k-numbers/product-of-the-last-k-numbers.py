@@ -1,4 +1,5 @@
 class ProductOfNumbers:
+
     def __init__(self):
         self.prefix = [1]
 
@@ -13,6 +14,8 @@ class ProductOfNumbers:
             return 0
 
         return self.prefix[-1] // self.prefix[-k-1]
+
+
 
 # Your ProductOfNumbers object will be instantiated and called as such:
 # obj = ProductOfNumbers()
